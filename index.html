@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ismael — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1828;
+    --navy-2:#0f2336;
+    --navy-3:#13293f;
+    --teal:#2a7d72;
+    --teal-light:#3fa294;
+    --copper:#c98a4b;
+    --copper-light:#e0a566;
+    --ink:#0a1828;
+    --paper:#fbfaf7;
+    --paper-2:#f3f1ea;
+    --line:rgba(10,24,40,.12);
+    --muted:#5a6573;
+    --muted-light:#8a93a0;
+    --r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--copper);color:var(--navy)}
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.08;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:18px 0;
+    background:rgba(251,250,247,0);
+    transition:background .4s ease,padding .4s ease,border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(251,250,247,.88);
+    backdrop-filter:blur(14px);
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:11px;font-family:'Fraunces',serif;font-size:20px;font-weight:600;letter-spacing:-.02em}
+  .logo .mark{width:30px;height:30px;flex:none}
+  .nav-links{display:flex;gap:38px;align-items:center}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--navy);position:relative;padding:4px 0;
+    transition:color .25s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;
+    background:var(--copper);transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--teal)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{
+    border:1.5px solid var(--navy);border-radius:40px;padding:9px 20px !important;
+    font-size:13.5px;
+  }
+  .nav-cta::after{display:none !important}
+  .nav-cta:hover{background:var(--navy);color:var(--paper) !important}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--navy)}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    background:
+      radial-gradient(ellipse 80% 60% at 72% 18%, rgba(42,125,114,.22), transparent 60%),
+      radial-gradient(ellipse 70% 70% at 18% 92%, rgba(201,138,75,.13), transparent 55%),
+      linear-gradient(165deg,var(--navy) 0%,var(--navy-2) 55%,#0c1f30 100%);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero-orbs{position:absolute;inset:0;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;opacity:.5}
+  .orb.a{width:340px;height:340px;top:-80px;right:8%;border:1px solid rgba(63,162,148,.35);animation:float1 14s ease-in-out infinite}
+  .orb.b{width:200px;height:200px;bottom:6%;left:6%;border:1px solid rgba(224,165,102,.3);animation:float2 11s ease-in-out infinite}
+  .orb.c{width:90px;height:90px;top:34%;left:42%;background:rgba(63,162,148,.07);animation:float1 9s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(26px)}}
+  @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  .hero-inner{position:relative;z-index:3;width:100%}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--copper-light);margin-bottom:26px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--teal-light);box-shadow:0 0 12px var(--teal-light)}
+  .hero h1{
+    font-size:clamp(2.6rem,5.7vw,4.6rem);color:#fff;margin-bottom:24px;font-weight:500;
+  }
+  .hero h1 em{font-style:italic;color:var(--copper-light);font-weight:400}
+  .cursor{display:inline-block;width:3px;height:.92em;background:var(--teal-light);margin-left:4px;transform:translateY(.08em);animation:blink 1.05s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero p.lede{
+    font-size:1.18rem;color:#b9c4d1;max-width:31em;margin-bottom:38px;line-height:1.65;
+  }
+  .hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:15px;
+    padding:15px 28px;border-radius:44px;cursor:pointer;transition:transform .25s,background .25s,box-shadow .25s,color .25s,border-color .25s;
+    border:1.5px solid transparent;
+  }
+  .btn-primary{
+    background:var(--copper);color:var(--navy);
+    box-shadow:0 10px 30px -10px rgba(201,138,75,.7);
+  }
+  .btn-primary:hover{transform:translateY(-3px);background:var(--copper-light);box-shadow:0 16px 40px -12px rgba(224,165,102,.8)}
+  .btn-primary .arrow{transition:transform .3s}
+  .btn-primary:hover .arrow{transform:translateX(5px)}
+  .btn-ghost{border-color:rgba(255,255,255,.3);color:#fff}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+
+  /* hero side card — interactive chaos meter */
+  .hero-card{
+    background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:26px;
+    backdrop-filter:blur(8px);
+  }
+  .hero-card .hc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .hero-card .hc-dots{display:flex;gap:6px}
+  .hc-dots span{width:10px;height:10px;border-radius:50%}
+  .hero-card .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted-light);text-transform:uppercase}
+  .chaos-label{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#8a93a0;margin-bottom:9px;text-transform:uppercase;letter-spacing:.08em}
+  .chaos-track{height:8px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;cursor:pointer;position:relative}
+  .chaos-fill{height:100%;width:30%;background:linear-gradient(90deg,#3fa294,#e0a566);border-radius:6px;transition:width .15s}
+  .chaos-state{font-family:'Fraunces',serif;font-size:1.5rem;color:#fff;margin:18px 0 4px}
+  .chaos-state em{font-style:italic;color:var(--copper-light)}
+  .chaos-sub{font-size:.9rem;color:#aeb9c6}
+  .field{display:flex;gap:5px;margin-top:18px;height:46px;align-items:flex-end}
+  .field i{flex:1;background:rgba(63,162,148,.35);border-radius:3px 3px 0 0;transition:height .25s,background .25s}
+
+  .scroll-hint{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:#8a93a0;
+    text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-hint .bar{width:1px;height:34px;background:linear-gradient(var(--copper-light),transparent);animation:drop 2s infinite}
+  @keyframes drop{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative}
+  .sec{padding:118px 0}
+  .sec-head{margin-bottom:60px;max-width:42em}
+  .sec-tag{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--teal);display:inline-flex;align-items:center;gap:12px;margin-bottom:18px;
+  }
+  .sec-tag::before{content:"";width:28px;height:1.5px;background:var(--copper)}
+  .sec-head h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px}
+  .sec-head h2 em{font-style:italic;color:var(--teal)}
+  .sec-head p{font-size:1.1rem;color:var(--muted);max-width:34em}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .card{
+    position:relative;border-radius:var(--r);overflow:hidden;cursor:pointer;
+    border:1px solid var(--line);background:var(--navy);
+    aspect-ratio:16/11;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 28px 50px -22px rgba(10,24,40,.55)}
+  .card .art{position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+  .card:hover .art{transform:scale(1.07)}
+  .card .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,17,28,.93) 0%,rgba(7,17,28,.55) 42%,rgba(7,17,28,.12) 100%);z-index:2}
+  .card .meta{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:26px;color:#fff}
+  .card .ptag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--copper-light);margin-bottom:8px;display:block;
+  }
+  .card h3{font-size:1.45rem;color:#fff;margin-bottom:6px}
+  .card .pdesc{
+    font-size:.95rem;color:#aeb9c6;max-height:0;opacity:0;overflow:hidden;
+    transition:max-height .5s ease,opacity .4s ease,margin .4s ease;
+  }
+  .card:hover .pdesc{max-height:110px;opacity:1;margin-top:4px}
+  .card .num{
+    position:absolute;top:22px;right:24px;z-index:3;font-family:'Fraunces',serif;
+    font-size:1.1rem;color:rgba(255,255,255,.55);font-weight:500;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+  .portrait-wrap{position:relative;justify-self:center}
+  .portrait{
+    width:300px;height:300px;border-radius:50%;position:relative;overflow:hidden;
+    border:1px solid var(--line);
+    background:linear-gradient(150deg,var(--navy),var(--navy-2));
+    z-index:2;
+  }
+  .portrait svg{width:100%;height:100%}
+  .ring{position:absolute;border-radius:50%;border:1.5px solid var(--copper);opacity:.4}
+  .ring.r1{inset:-18px;border-style:dashed;animation:spin 40s linear infinite}
+  .ring.r2{inset:-38px;border-color:var(--teal);opacity:.25}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .badge{
+    position:absolute;z-index:3;background:var(--paper);border:1px solid var(--line);
+    border-radius:40px;padding:9px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px -12px rgba(10,24,40,.3);
+  }
+  .badge i{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .badge.b1{top:6%;right:-18px}
+  .badge.b2{bottom:10%;left:-30px}
+  .about h2{font-size:clamp(1.9rem,3.6vw,2.7rem);margin-bottom:22px}
+  .about h2 em{font-style:italic;color:var(--teal)}
+  .about p{color:var(--muted);font-size:1.08rem;margin-bottom:18px}
+  .about p strong{color:var(--ink);font-weight:600}
+  .about .sig{font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;color:var(--navy);margin-top:8px}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .skill-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;
+    transition:transform .35s,border-color .35s,box-shadow .35s;
+  }
+  .skill-card:hover{transform:translateY(-5px);border-color:rgba(42,125,114,.4);box-shadow:0 20px 40px -24px rgba(10,24,40,.35)}
+  .skill-icon{
+    width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .skill-card h3{font-size:1.25rem;margin-bottom:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;padding:6px 12px;border-radius:8px;
+    background:var(--paper-2);border:1px solid var(--line);color:var(--navy-2);
+  }
+
+  /* ---------- TIMELINE / MILESTONES ---------- */
+  .tl{position:relative;max-width:780px;margin:0 auto;padding-left:8px}
+  .tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:1.5px;background:linear-gradient(var(--copper),var(--teal))}
+  .tl-item{position:relative;padding:0 0 40px 46px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item .node{
+    position:absolute;left:0;top:2px;width:17px;height:17px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--copper);z-index:2;
+    display:flex;align-items:center;justify-content:center;font-size:9px;
+  }
+  .tl-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:5px}
+  .tl-item .yr{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teal);letter-spacing:.06em;background:rgba(42,125,114,.1);padding:3px 9px;border-radius:6px}
+  .tl-item h3{font-size:1.2rem}
+  .tl-item p{color:var(--muted);font-size:1rem}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .quote{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;
+    display:flex;flex-direction:column;
+  }
+  .quote .qm{font-family:'Fraunces',serif;font-size:3rem;line-height:.6;color:var(--copper);height:28px}
+  .quote p{color:var(--navy-2);font-size:1.02rem;margin:14px 0 22px;flex:1}
+  .who{display:flex;align-items:center;gap:13px}
+  .who .av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff;font-family:'Inter'}
+  .who .nm{font-weight:600;font-size:14.5px}
+  .who .rl{font-size:12.5px;color:var(--muted-light)}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:
+      radial-gradient(ellipse 70% 80% at 85% 10%, rgba(42,125,114,.2), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 10% 100%, rgba(201,138,75,.1), transparent 55%),
+      linear-gradient(160deg,var(--navy),var(--navy-2));
+    color:var(--paper);position:relative;overflow:hidden;
+  }
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;position:relative;z-index:2}
+  .contact h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:18px}
+  .contact h2 em{font-style:italic;color:var(--copper-light)}
+  .contact .lede{color:#b9c4d1;font-size:1.1rem;margin-bottom:34px;max-width:26em}
+  .contact .sec-tag{color:var(--copper-light)}
+  .contact .sec-tag::before{background:var(--teal-light)}
+  .clink{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid rgba(255,255,255,.12);transition:padding .3s}
+  .clink:last-child{border-bottom:1px solid rgba(255,255,255,.12)}
+  .clink:hover{padding-left:8px}
+  .clink .ci{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex:none;transition:background .3s}
+  .clink:hover .ci{background:rgba(201,138,75,.18)}
+  .clink .ct .l{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-light)}
+  .clink .ct .v{font-size:15px;color:#fff}
+  .clink .ar{margin-left:auto;color:var(--copper-light);transition:transform .3s}
+  .clink:hover .ar{transform:translate(4px,-4px)}
+
+  /* form */
+  .form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:32px}
+  .fld{margin-bottom:18px}
+  .fld label{display:block;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-light);margin-bottom:8px}
+  .fld input,.fld textarea{
+    width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:10px;
+    padding:13px 15px;color:#fff;font-family:'Inter';font-size:15px;transition:border-color .25s,background .25s;
+  }
+  .fld input::placeholder,.fld textarea::placeholder{color:#6b7785}
+  .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--copper);background:rgba(255,255,255,.08)}
+  .fld textarea{resize:vertical;min-height:110px}
+  .form .btn-primary{width:100%;justify-content:center;border:none}
+  .form-note{font-size:12.5px;color:var(--muted-light);margin-top:14px;text-align:center}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#07111c;color:var(--muted-light);padding:54px 0 30px}
+  .foot-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .foot-logo{display:flex;align-items:center;gap:11px;font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:#fff}
+  .foot-logo .mark{width:28px;height:28px}
+  .socials{display:flex;gap:12px}
+  .socials a{width:40px;height:40px;border-radius:10px;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:#cdd6e0;transition:all .3s}
+  .socials a:hover{background:var(--copper);color:var(--navy);border-color:var(--copper);transform:translateY(-3px)}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:13px}
+  .foot-bot .mono{color:#6b7785}
+  .foot-nav{display:flex;gap:24px}
+  .foot-nav a{font-size:13px;transition:color .25s}
+  .foot-nav a:hover{color:var(--copper-light)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:44px}
+    .hero-card{max-width:430px}
+    .about-grid{grid-template-columns:1fr;gap:48px}
+    .contact-grid{grid-template-columns:1fr;gap:44px}
+    .skills-grid,.quotes{grid-template-columns:1fr}
+    .proj-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .nav-links.open{
+      display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+      background:rgba(251,250,247,.97);backdrop-filter:blur(14px);padding:8px 32px 20px;border-bottom:1px solid var(--line);
+    }
+    .nav-links.open a{padding:13px 0;border-bottom:1px solid var(--line);width:100%}
+    .nav-links.open .nav-cta{margin-top:14px;text-align:center}
+    .menu-btn{display:block}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 20px}
+    .sec{padding:84px 0}
+    .hero-actions{flex-direction:column;align-items:stretch}
+    .btn{justify-content:center}
+    .foot-bot{flex-direction:column;text-align:center}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none !important}
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .cursor{opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">
+      <svg class="mark" viewBox="0 0 40 40" fill="none">
+        <rect x="1" y="1" width="38" height="38" rx="9" stroke="#c98a4b" stroke-width="1.5"/>
+        <path d="M15 14l-5 6 5 6" stroke="#3fa294" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M25 14l5 6-5 6" stroke="#c98a4b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Ismael<span style="color:#c98a4b">.</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#work">Proyectos</a>
+      <a href="#about">Sobre mí</a>
+      <a href="#skills">Herramientas</a>
+      <a href="#milestones">Logros</a>
+      <a href="#contact" class="nav-cta">Hablemos</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-orbs">
+    <span class="orb a"></span><span class="orb b"></span><span class="orb c"></span>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal"><span class="dot"></span>Estudiante · Creador · Constructor</span>
+        <h1 class="reveal">Convierto la curiosidad en <em>código, arte</em> y todo lo demás<span class="cursor"></span></h1>
+        <p class="lede reveal">Hola, soy Ismael — estudiante y creador al que le encanta programar, diseñar, desarrollar videojuegos y escribir. Me apasiona tomar las ideas que tengo en la cabeza y darles vida en la pantalla.</p>
+        <div class="hero-actions reveal">
+          <a href="#work" class="btn btn-primary">Ver mi trabajo <span class="arrow">→</span></a>
+          <a href="#contact" class="btn btn-ghost">Contactar</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <div class="hc-top">
+          <div class="hc-dots"><span style="background:#e0a566"></span><span style="background:#3fa294"></span><span style="background:#5e6b7a"></span></div>
+          <span class="label">pruébame · motor de caos</span>
+        </div>
+        <div class="chaos-label"><span>Tranquilo</span><span>Caótico</span></div>
+        <div class="chaos-track" id="chaosTrack"><div class="chaos-fill" id="chaosFill"></div></div>
+        <div class="chaos-state">El juego está <em id="chaosWord">equilibrado</em>.</div>
+        <div class="chaos-sub" id="chaosSub">La dificultad se adapta a cómo juegas. Arrastra la barra.</div>
+        <div class="field" id="field"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span>Desliza</span><span class="bar"></span></div>
+</header>
+
+<!-- ===== PROJECTS ===== -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Trabajo destacado</span>
+      <h2>Ideas que quiero <em>construir</em>.</h2>
+      <p>Cuatro conceptos que me entusiasman — cada uno apuesta a que lo interesante no es el código en sí, sino la forma de pensar cómo las personas lo experimentan.</p>
+    </div>
+
+    <div class="proj-grid">
+
+      <!-- 1: chaos game -->
+      <article class="card reveal" onclick="ask('Cuéntame más sobre el juego retro que se adapta a lo caóticamente que juega la persona')">
+        <span class="num">01</span>
+        <div class="art">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="600" height="400" fill="#0f2336"/>
+            <g stroke="#1c3550" stroke-width="1"><path d="M0 100H600M0 200H600M0 300H600M150 0V400M300 0V400M450 0V400"/></g>
+            <rect x="40" y="40" width="34" height="34" rx="5" fill="#e0a566"/>
+            <g fill="#3fa294" opacity=".9"><circle cx="180" cy="120" r="12"/><circle cx="300" cy="90" r="9"/><circle cx="420" cy="160" r="14"/><circle cx="500" cy="100" r="8"/><circle cx="250" cy="220" r="10"/><circle cx="380" cy="280" r="13"/><circle cx="140" cy="300" r="9"/><circle cx="510" cy="320" r="11"/></g>
+            <g fill="#c98a4b" opacity=".7"><circle cx="220" cy="170" r="5"/><circle cx="340" cy="140" r="5"/><circle cx="470" cy="240" r="5"/><circle cx="200" cy="350" r="5"/></g>
+            <path d="M74 57 L180 120" stroke="#e0a566" stroke-width="1.4" stroke-dasharray="4 4" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="veil"></div>
+        <div class="meta">
+          <span class="ptag">Tecnología · Diseño de juegos</span>
+          <h3>El juego retro que cuida tu enfoque</h3>
+          <p class="pdesc">Un juego arcade en 2D cuya dificultad cambia según lo caóticamente que juegues — hacer clic frenéticamente genera más obstáculos, jugar con calma calma el entorno. Diseño de juegos que piensa en la psicología del usuario.</p>
+        </div>
+      </article>
+
+      <!-- 2: luxury pencil -->
+      <article class="card reveal" onclick="ask('Cuéntame más sobre el rebranding de lujo de un objeto cotidiano y aburrido')">
+        <span class="num">02</span>
+        <div class="art">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="600" height="400" fill="#11253a"/>
+            <g transform="rotate(-32 300 200)">
+              <rect x="250" y="70" width="100" height="200" fill="#e0a566"/>
+              <rect x="250" y="70" width="100" height="200" fill="none" stroke="#f0c98a" stroke-width="1" opacity=".5"/>
+              <polygon points="250,270 350,270 300,330" fill="#f3e9d8"/>
+              <polygon points="270,306 330,306 300,330" fill="#1c344c"/>
+              <rect x="250" y="44" width="100" height="26" fill="#3fa294"/>
+              <rect x="250" y="34" width="100" height="12" rx="6" fill="#cdd6e0"/>
+            </g>
+            <text x="300" y="360" fill="#9fe1cb" font-family="Fraunces, serif" font-size="20" font-style="italic" text-anchor="middle">Revolucionario, afilado.</text>
+          </svg>
+        </div>
+        <div class="veil"></div>
+        <div class="meta">
+          <span class="ptag">Branding · Diseño</span>
+          <h3>Lujo, para un lápiz Nº 2</h3>
+          <p class="pdesc">Una identidad de marca, logo y maqueta de sitio al estilo Apple para algo gloriosamente cotidiano. A partes iguales humor, oficio y la prueba de que puedo hacer que cualquier cosa luzca espectacular.</p>
+        </div>
+      </article>
+
+      <!-- 3: smart plant -->
+      <article class="card reveal" onclick="ask('Cuéntame más sobre el proyecto del panel para una planta inteligente')">
+        <span class="num">03</span>
+        <div class="art">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="600" height="400" fill="#0d2135"/>
+            <rect x="220" y="250" width="160" height="100" rx="10" fill="#c98a4b"/>
+            <path d="M300 250 C300 180 250 170 250 120" stroke="#3fa294" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M300 250 C300 200 350 190 355 150" stroke="#3fa294" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="245" cy="112" rx="26" ry="15" fill="#3fa294" transform="rotate(-30 245 112)"/>
+            <ellipse cx="360" cy="142" rx="26" ry="15" fill="#5dcaa5" transform="rotate(30 360 142)"/>
+            <circle cx="285" cy="295" r="6" fill="#0d2135"/><circle cx="315" cy="295" r="6" fill="#0d2135"/>
+            <path d="M288 315 Q300 308 312 315" stroke="#0d2135" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <g font-family="monospace" font-size="13" fill="#9fe1cb"><text x="60" y="90">tierra: 82%</text><text x="60" y="120">sol: ok</text><text x="60" y="150">ánimo: feliz</text></g>
+            <g stroke="#e0a566" stroke-width="1.2" opacity=".6"><path d="M120 96 H200M120 126 H180"/></g>
+          </svg>
+        </div>
+        <div class="veil"></div>
+        <div class="meta">
+          <span class="ptag">Hardware · Datos · Web</span>
+          <h3>El panel de la planta inteligente</h3>
+          <p class="pdesc">Un microcontrolador (o datos simulados) mide la humedad, la luz y el "ánimo" de una planta de interior — y un panel divertido convierte los datos en un avatar vivo que se pone dramático cuando tiene sed.</p>
+        </div>
+      </article>
+
+      <!-- 4: branching story -->
+      <article class="card reveal" onclick="ask('Cuéntame más sobre la app de historia interactiva tipo elige tu propia aventura')">
+        <span class="num">04</span>
+        <div class="art">
+          <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <rect width="600" height="400" fill="#13293f"/>
+            <g stroke="#c98a4b" stroke-width="1.6" fill="none">
+              <path d="M110 200 H210"/>
+              <path d="M210 200 C260 200 260 120 320 120"/>
+              <path d="M210 200 C260 200 260 280 320 280"/>
+              <path d="M320 120 C380 120 380 80 440 80"/>
+              <path d="M320 120 C380 120 380 160 440 160"/>
+              <path d="M320 280 C380 280 380 240 440 240"/>
+              <path d="M320 280 C380 280 380 320 440 320"/>
+            </g>
+            <circle cx="110" cy="200" r="11" fill="#e0a566"/>
+            <g fill="#1c344c" stroke="#3fa294" stroke-width="1.6"><circle cx="320" cy="120" r="9"/><circle cx="320" cy="280" r="9"/></g>
+            <g fill="#3fa294"><circle cx="440" cy="80" r="7"/><circle cx="440" cy="160" r="7"/><circle cx="440" cy="240" r="7"/><circle cx="440" cy="320" r="7"/></g>
+            <text x="300" y="375" fill="#9fe1cb" font-family="monospace" font-size="12" text-anchor="middle" letter-spacing="2">CADA ELECCIÓN → UN FINAL DISTINTO</text>
+          </svg>
+        </div>
+        <div class="veil"></div>
+        <div class="meta">
+          <span class="ptag">Escritura · Interactivo</span>
+          <h3>Elige tu propia aventura</h3>
+          <p class="pdesc">Un misterio envolvente en el que el fondo cambia de color según el tono de la historia y cada enlace es una bifurcación en el camino. El oficio narrativo se encuentra con la experiencia interactiva.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="sec about" id="about">
+  <div class="wrap about-grid">
+    <div class="portrait-wrap reveal">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="portrait">
+        <svg viewBox="0 0 300 300">
+          <defs><clipPath id="circ"><circle cx="150" cy="150" r="150"/></clipPath></defs>
+          <g clip-path="url(#circ)">
+            <rect width="300" height="300" fill="#0f2336"/>
+            <g stroke="#2a7d72" stroke-width="1" opacity=".35" fill="none"><path d="M20 60 H120 Q140 60 140 80 V120"/><path d="M280 90 H200 Q180 90 180 110 V160"/></g>
+            <circle cx="150" cy="118" r="44" fill="#1c344c"/>
+            <path d="M70 300 Q70 195 150 195 Q230 195 230 300 Z" fill="#1c344c"/>
+            <circle cx="150" cy="118" r="44" fill="none" stroke="#c98a4b" stroke-width="1.5" opacity=".6"/>
+          </g>
+        </svg>
+      </div>
+      <span class="badge b1"><i style="background:#3fa294"></i>racha de 200 días</span>
+      <span class="badge b2"><i style="background:#c98a4b"></i>autodidacta</span>
+    </div>
+
+    <div class="reveal">
+      <span class="sec-tag">Sobre mí</span>
+      <h2>Un creador que construye <em>todos los días</em>.</h2>
+      <p>Hola, soy Ismael — estudiante, creador y constructor fascinado por el punto donde el código se encuentra con el diseño. Me interesan <strong>la programación, el diseño gráfico, el desarrollo de videojuegos y la escritura creativa</strong>, y soy más feliz cuando tomo una idea de mi cabeza y la hago real en la pantalla.</p>
+      <p>Cuando no estoy metido en un proyecto, me encontrarás <strong>corriendo, en el gimnasio o navegando a vela</strong> — normalmente con música — o cayendo por una madriguera de matemáticas o informática. Aprendo mejor construyendo, y así es como acabé con una biblioteca de microproyectos: diseñando, programando o escribiendo algo cada día.</p>
+      <p class="sig">"Si puedo imaginarlo, quiero construirlo."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Mis herramientas</span>
+      <h2>Herramientas que vengo <em>dominando</em>.</h2>
+      <p>Los lenguajes, programas y hábitos a los que recurro cuando convierto una idea en algo real.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:rgba(42,125,114,.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7d72" stroke-width="1.8"><path d="M8 6 3 12l5 6M16 6l5 6-5 6"/></svg>
+        </div>
+        <h3>Tecnología y código</h3>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">HTML/CSS</span><span class="chip">JavaScript</span><span class="chip">Scratch</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:rgba(201,138,75,.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c98a4b" stroke-width="1.8"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20c1.4 0 2-1 2-2s-.6-2-2-2"/></svg>
+        </div>
+        <h3>Creatividad y diseño</h3>
+        <div class="chips">
+          <span class="chip">Canva</span><span class="chip">Photoshop</span><span class="chip">Diseño UI</span><span class="chip">Edición de vídeo</span><span class="chip">Blender</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon" style="background:rgba(42,125,114,.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7d72" stroke-width="1.8"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Cómo trabajo</h3>
+        <div class="chips">
+          <span class="chip">Trabajo en equipo</span><span class="chip">Resolución ágil de problemas</span><span class="chip">Pensamiento creativo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MILESTONES ===== -->
+<section class="sec about" id="milestones">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin:0 auto 56px;text-align:center">
+      <span class="sec-tag" style="justify-content:center">Logros</span>
+      <h2>Premios, hitos y <em>buenos hábitos</em>.</h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item reveal">
+        <span class="node"></span>
+        <div class="tl-row"><span class="yr">2025</span><h3>Racha de 200 días creando algo</h3></div>
+        <p>Diseñé, programé o escribí algo todos los días — construyendo una enorme biblioteca de microproyectos y acelerando mi crecimiento a toda velocidad.</p>
+      </div>
+      <div class="tl-item reveal">
+        <span class="node"></span>
+        <div class="tl-row"><span class="yr">2025</span><h3>Completé un itinerario autodidacta avanzado</h3></div>
+        <p>Aprendí por mi cuenta Python, Blender y principios de diseño UI/UX fuera del horario escolar.</p>
+      </div>
+      <div class="tl-item reveal">
+        <span class="node"></span>
+        <div class="tl-row"><span class="yr">2024</span><h3>Premio a la "Solución más creativa"</h3></div>
+        <p>Reconocido en el Colegio Santo Tomás de Aquino por una respuesta poco convencional a un proyecto complejo — prueba de que pienso fuera de la caja cuando los métodos habituales se quedan cortos.</p>
+      </div>
+      <div class="tl-item reveal">
+        <span class="node"></span>
+        <div class="tl-row"><span class="yr">2023</span><h3>Finalista destacado e innovador en hackathon</h3></div>
+        <p>Quedé en el grupo de cabeza de un hackathon con un prototipo funcional que abordaba el desperdicio de comida local y la gestión del tiempo de los estudiantes — construido en menos de 48 horas.</p>
+      </div>
+      <div class="tl-item reveal">
+        <span class="node"></span>
+        <div class="tl-row"><span class="yr">2023</span><h3>Director creativo y técnico</h3></div>
+        <p>Lideré la dirección visual y el montaje técnico en Santo Tomás de Aquino, coordinando al equipo para que el resultado final fuera a la vez bonito y funcional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="sec" id="words">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Lo que dicen</span>
+      <h2>Lo que dice la gente con la que <em>he trabajado</em>.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote reveal">
+        <span class="qm">"</span>
+        <p>Ismael convirtió un encargo árido en algo con lo que todos querían jugar. Es de esas pocas personas que cuidan tanto lo visual como la lógica hasta que todo encaja.</p>
+        <div class="who">
+          <div class="av" style="background:#2a7d72">PM</div>
+          <div><div class="nm">Mentor de proyecto</div><div class="rl">Santo Tomás de Aquino</div></div>
+        </div>
+      </div>
+      <div class="quote reveal">
+        <span class="qm">"</span>
+        <p>Durante el hackathon mantuvo a todo el equipo en marcha — prototipó rápido, se mantuvo tranquilo contra el reloj y aun así sacó una idea ingeniosa que nadie esperaba.</p>
+        <div class="who">
+          <div class="av" style="background:#c98a4b">CE</div>
+          <div><div class="nm">Compañero de equipo</div><div class="rl">Hackathon 2023</div></div>
+        </div>
+      </div>
+      <div class="quote reveal">
+        <span class="qm">"</span>
+        <p>Dale un problema vago y vuelve con algo que no sabías que querías. Una mente genuinamente original y con la constancia para llevarlo a cabo.</p>
+        <div class="who">
+          <div class="av" style="background:#1c344c">PR</div>
+          <div><div class="nm">Profesor</div><div class="rl">Informática</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="sec contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="sec-tag">Conectemos</span>
+      <h2>Construyamos algo <em>increíble</em> juntos.</h2>
+      <p class="lede">Siempre estoy abierto a colaborar en un proyecto divertido o simplemente a charlar sobre ideas geniales. Escríbeme.</p>
+
+      <a class="clink" href="mailto:ismaelaish11@gmail.com" target="_blank">
+        <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e0a566" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <span class="ct"><span class="l">Correo</span></span>
+        <span class="ar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+      <a class="clink" href="https://github.com/sSILENTPIPE" target="_blank">
+        <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="#e0a566"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.6 4.9.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></span>
+        <span class="ct"><span class="l">GitHub</span></span>
+        <span class="ar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+
+    <div class="form reveal">
+      <div class="fld">
+        <label for="nm">Tu nombre</label>
+        <input id="nm" type="text" placeholder="Ana García">
+      </div>
+      <div class="fld">
+        <label for="em">Correo</label>
+        <input id="em" type="email" placeholder="ana@ejemplo.com">
+      </div>
+      <div class="fld">
+        <label for="msg">Mensaje</label>
+        <textarea id="msg" placeholder="Cuéntame sobre tu idea…"></textarea>
+      </div>
+      <button class="btn btn-primary" id="sendBtn">Enviar mensaje <span class="arrow">→</span></button>
+      <p class="form-note" id="formNote">Construyamos algo increíble juntos. ✨</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a href="#top" class="foot-logo">
+        <svg class="mark" viewBox="0 0 40 40" fill="none">
+          <rect x="1" y="1" width="38" height="38" rx="9" stroke="#c98a4b" stroke-width="1.5"/>
+          <path d="M15 14l-5 6 5 6" stroke="#3fa294" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M25 14l5 6-5 6" stroke="#c98a4b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Ismael<span style="color:#c98a4b">.</span></span>
+      </a>
+      <div class="socials">
+        <a href="https://github.com/sSILENTPIPE" aria-label="GitHub" target="_blank"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.6 4.9.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="https://www.behance.net/ismaelaish" aria-label="Behance" target="_blank"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7H3v10h6.2c2.1 0 3.6-1.1 3.6-3 0-1.3-.7-2.2-1.8-2.5 1-.4 1.4-1.2 1.4-2.1C12.4 7.8 11.1 7 9 7Zm-.3 4H5.4V8.9h3.2c.9 0 1.4.4 1.4 1.05S9.6 11 8.7 11Zm.3 4.1H5.4v-2.3h3.4c1 0 1.6.4 1.6 1.15s-.6 1.15-1.7 1.15ZM21 12.2c0-2.4-1.5-4.1-3.9-4.1S13 9.9 13 12.3s1.6 4 4.1 4c1.9 0 3.3-1 3.7-2.5h-2c-.3.6-.8.9-1.6.9-1 0-1.7-.6-1.8-1.6h5.5c0-.3.1-.5.1-.8Zm-5.6-.8c.1-.9.7-1.5 1.7-1.5s1.6.6 1.6 1.5h-3.3ZM15 6.5h4V5.4h-4z"/></svg></a>
+        <a href="mailto:ismaelaish11@gmail.com" aria-label="Email" target="_blank"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="mono">© 2026 Ismael · Diseñado y construido desde cero.</span>
+      <div class="foot-nav">
+        <a href="#work">Proyectos</a><a href="#about">Sobre mí</a><a href="#skills">Herramientas</a><a href="#contact">Contacto</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+  const menuBtn=document.getElementById('menuBtn'), navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4*60)+'ms';
+    io.observe(el);
+  });
+
+  function ask(t){ if(window.sendPrompt) sendPrompt(t); }
+  window.ask=ask;
+
+  /* ---- interactive chaos meter ---- */
+  const track=document.getElementById('chaosTrack');
+  const fill=document.getElementById('chaosFill');
+  const word=document.getElementById('chaosWord');
+  const sub=document.getElementById('chaosSub');
+  const field=document.getElementById('field');
+  const BARS=14;
+  for(let i=0;i<BARS;i++){const b=document.createElement('i');field.appendChild(b);}
+  const bars=[...field.children];
+  function render(p){
+    fill.style.width=Math.round(p*100)+'%';
+    let w,s,active,color;
+    if(p<0.34){w='tranquilo';s='Pocos obstáculos. El mundo se mantiene quieto y estable.';active=3;color='#3fa294';}
+    else if(p<0.67){w='equilibrado';s='Un reto justo — los obstáculos van a tu ritmo.';active=7;color='#5dcaa5';}
+    else{w='caótico';s='El juego frenético genera más obstáculos. Prepárate.';active=BARS;color='#e0a566';}
+    word.textContent=w; sub.textContent=s;
+    bars.forEach((b,i)=>{
+      const on=i<active;
+      b.style.height=on?(20+Math.round(Math.random()*24))+'px':'8px';
+      b.style.background=on?color:'rgba(255,255,255,.1)';
+    });
+  }
+  function setFromEvent(e){
+    const r=track.getBoundingClientRect();
+    const x=((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width;
+    render(Math.max(0,Math.min(1,x)));
+  }
+  let dragging=false;
+  track.addEventListener('pointerdown',e=>{dragging=true;setFromEvent(e);});
+  addEventListener('pointermove',e=>{if(dragging)setFromEvent(e);});
+  addEventListener('pointerup',()=>dragging=false);
+  render(0.3);
+
+  /* ---- contact form (demo) ---- */
+  document.getElementById('sendBtn').addEventListener('click',()=>{
+    const nm=document.getElementById('nm').value.trim();
+    const em=document.getElementById('em').value.trim();
+    const msg=document.getElementById('msg').value.trim();
+    const note=document.getElementById('formNote');
+    if(!nm||!em||!msg){ note.textContent='Por favor, completa todos los campos antes de enviar.'; note.style.color='#e0a566'; return; }
+    note.textContent='Gracias, '+nm+' — este es un formulario de demostración, conéctalo a tu correo para activarlo.';
+    note.style.color='#3fa294';
+  });
+</script>
+</body>
+</html>
