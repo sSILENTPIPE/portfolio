@@ -701,23 +701,22 @@
       </a>
     </div>
 
-    <div class="form reveal">
+    <form class="form reveal" action="https://formspree.io/f/TU_CODIGO" method="POST">
       <div class="fld">
         <label for="nm">Tu nombre</label>
-        <input id="nm" type="text" placeholder="Ana García">
+        <input id="nm" name="nombre" type="text" placeholder="Ana García" required>
       </div>
       <div class="fld">
         <label for="em">Correo</label>
-        <input id="em" type="email" placeholder="ana@ejemplo.com">
+        <input id="em" name="email" type="email" placeholder="ana@ejemplo.com" required>
       </div>
       <div class="fld">
         <label for="msg">Mensaje</label>
-        <textarea id="msg" placeholder="Cuéntame sobre tu idea…"></textarea>
+        <textarea id="msg" name="mensaje" placeholder="Cuéntame sobre tu idea…" required></textarea>
       </div>
-      <button class="btn btn-primary" id="sendBtn">Enviar mensaje <span class="arrow">→</span></button>
-      <p class="form-note" id="formNote">Construyamos algo increíble juntos. ✨</p>
-    </div>
-  </div>
+      <button class="btn btn-primary" type="submit">Enviar mensaje <span class="arrow">→</span></button>
+      <p class="form-note">Construyamos algo increíble juntos. ✨</p>
+    </form>
 </section>
 
 <!-- ===== FOOTER ===== -->
