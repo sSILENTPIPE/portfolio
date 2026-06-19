@@ -797,17 +797,6 @@
   addEventListener('pointermove',e=>{if(dragging)setFromEvent(e);});
   addEventListener('pointerup',()=>dragging=false);
   render(0.3);
-
-  /* ---- contact form (demo) ---- */
-  document.getElementById('sendBtn').addEventListener('click',()=>{
-    const nm=document.getElementById('nm').value.trim();
-    const em=document.getElementById('em').value.trim();
-    const msg=document.getElementById('msg').value.trim();
-    const note=document.getElementById('formNote');
-    if(!nm||!em||!msg){ note.textContent='Por favor, completa todos los campos antes de enviar.'; note.style.color='#e0a566'; return; }
-    note.textContent='Gracias, '+nm+' — este es un formulario de demostración, conéctalo a tu correo para activarlo.';
-    note.style.color='#3fa294';
-  });
 </script>
 </body>
 </html>
